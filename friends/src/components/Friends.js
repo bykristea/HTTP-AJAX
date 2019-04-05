@@ -9,6 +9,8 @@ const Friends = (props) => {
                     <th>Name</th>
                     <th>Age</th>
                     <th>Email</th>
+                    <th>Update</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,6 +20,11 @@ const Friends = (props) => {
                         <td>{friend.name}</td>
                         <td>{friend.age}</td>
                         <td>{friend.email}</td>
+                        <td onClick={props.updateFriend}>
+                            <span id={friend.id} style={{fontWeight: "bold", cursor: "pointer"}}>
+                                +
+                            </span>
+                        </td>
                         <td onClick={props.removeFriend}>
                             <span id={friend.id} style={{fontWeight: "bold", cursor: "pointer"}}>
                                 X
