@@ -22,18 +22,7 @@ class App extends Component {
           },
         })
       })
-      .catch(err => {
-        if (err.response.data) {
-          const message = err.response.data.substring(
-              err.response.data.lastIndexOf('<pre>') + 5, 
-              err.response.data.lastIndexOf('</pre>')
-          );
-          this.setState({
-            ...this.state, 
-            error: `Error ${err.response.status}: ${message}`
-          })  
-        }          
-      });
+      .catch(err => console.log(err));;
   }
 
   handleInput = (e) => {
@@ -51,18 +40,7 @@ class App extends Component {
       .then(res => {
         this.setState({ friends: res.data})
       })
-      .catch(err => {
-        if (err.response) {
-          const message = err.response.data.substring(
-            err.response.data.lastIndexOf('<pre>') + 5, 
-            err.response.data.lastIndexOf('</pre>')
-          );
-          this.setState({
-            ...this.state, 
-            error: `Error ${err.response.status}: ${message}`,
-          })  
-        }   
-      })
+      .catch(err => console.log(err));
   }
 
   addFriend = (e) => {
@@ -94,18 +72,7 @@ class App extends Component {
       .then(res => {
         this.setState({ friends: res.data})
       })
-      .catch(err => {
-        if (err.response) {
-          const message = err.response.data.substring(
-            err.response.data.lastIndexOf('<pre>') + 5, 
-            err.response.data.lastIndexOf('</pre>')
-          );
-          this.setState({
-            ...this.state, 
-            error: `Error ${err.response.status}: ${message}`,
-          })  
-        }   
-      })
+      .catch(err => console.log(err));
   }
 
   removeFriend = (e) => {
@@ -128,18 +95,7 @@ class App extends Component {
         })
       })
       .then(this.updateFriendForm)
-      .catch(err => {
-        if (err.response) {
-          const message = err.response.data.substring(
-            err.response.data.lastIndexOf('<pre>') + 5, 
-            err.response.data.lastIndexOf('</pre>')
-          );
-          this.setState({
-            ...this.state, 
-            error: `Error ${err.response.status}: ${message}`,
-          })  
-        }   
-      })
+      .catch(err => console.log(err));
   }
 
   updateFriend = (e) => {
@@ -155,22 +111,20 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        {this.state.error ? <div>{this.state.error}</div> :
-        <div>
-          <h3>My Friends</h3>
+          <div>
+          <h3>Friends:</h3>
           <Friends 
             friends={this.state.friends}
             removeFriend={this.removeFriend}
             updateFriend={this.updateFriend}
             />
           
-          <h4>Want to be my friend?</h4>
+          <h4>Let's be Friends!</h4>
           <NewFriend 
             addFriend={this.addFriend}
             handleInput={this.handleInput}
           />
-        </div>}
+       
       </div>
     );
   }
