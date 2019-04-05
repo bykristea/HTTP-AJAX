@@ -22,7 +22,11 @@ class App extends Component {
           },
         })
       })
+<<<<<<< HEAD
       .catch(err => console.log(err));
+=======
+      .catch(err => console.log(err));;
+>>>>>>> 8d19420... MVP update function
   }
 
   handleInput = (e) => {
@@ -40,7 +44,11 @@ class App extends Component {
       .then(res => {
         this.setState({ friends: res.data})
       })
+<<<<<<< HEAD
       .catch(err => console.log(err))
+=======
+      .catch(err => console.log(err));
+>>>>>>> 8d19420... MVP update function
   }
 
   addFriend = (e) => {
@@ -57,16 +65,25 @@ class App extends Component {
 
   deleteFriend = (id) => {
     axios
+<<<<<<< HEAD
     .delete(`http://localhost:5000/friends/${id}`)
     .then(res => {
       this.setState({ friends: res.data })
     })
     .catch(err => console.log(err))
+=======
+      .delete(`http://localhost:5000/friends/${id}`)
+      .then(res => {
+        this.setState({ friends: res.data})
+      })
+      .catch(err => console.log(err));
+>>>>>>> 8d19420... MVP update function
   }
 
   removeFriend = (e) => {
     this.deleteFriend(e.target.id)
   }
+<<<<<<< HEAD
   render() {
     return (
       <div>
@@ -83,6 +100,55 @@ class App extends Component {
           handleInput={this.handleInput}
         />
      </div>
+=======
+
+  putFriend = (id) => {
+    axios
+      .put(`http://localhost:5000/friends/${id}`)
+      .then(res => {
+        let target = res.data.filter(data => `${data.id}` === id)
+        this.setState({ 
+          newFriend: {
+            id: target[0].id, 
+            name: target[0].name,
+            age: target[0].age,
+            email: target[0].email,
+          }
+        })
+      })
+      .then(this.updateFriendForm)
+      .catch(err => console.log(err));
+  }
+
+  updateFriend = (e) => {
+    e.preventDefault();
+    this.putFriend(e.target.id);
+  }
+
+  updateFriendForm = () => {
+    document.getElementById('name').value = this.state.newFriend.name;
+    document.getElementById('age').value = this.state.newFriend.age;
+    document.getElementById('email').value = this.state.newFriend.email;
+  }
+
+  render() {
+    return (
+          <div>
+          <h3>Friends:</h3>
+          <Friends 
+            friends={this.state.friends}
+            removeFriend={this.removeFriend}
+            updateFriend={this.updateFriend}
+            />
+          
+          <h4>Let's be Friends!</h4>
+          <NewFriend 
+            addFriend={this.addFriend}
+            handleInput={this.handleInput}
+          />
+       
+      </div>
+>>>>>>> 8d19420... MVP update function
     );
   }
 }
