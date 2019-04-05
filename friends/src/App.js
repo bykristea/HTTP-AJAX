@@ -22,18 +22,7 @@ class App extends Component {
           },
         })
       })
-      .catch(err => {
-        if (err.response.data) {
-          const message = err.response.data.substring(
-              err.response.data.lastIndexOf('<pre>') + 5, 
-              err.response.data.lastIndexOf('</pre>')
-          );
-          this.setState({
-            ...this.state, 
-            error: `Error ${err.response.status}: ${message}`
-          })  
-        }          
-      });
+      .catch(err => console.log(err));
   }
 
   handleInput = (e) => {
@@ -51,18 +40,7 @@ class App extends Component {
       .then(res => {
         this.setState({ friends: res.data})
       })
-      .catch(err => {
-        if (err.response) {
-          const message = err.response.data.substring(
-            err.response.data.lastIndexOf('<pre>') + 5, 
-            err.response.data.lastIndexOf('</pre>')
-          );
-          this.setState({
-            ...this.state, 
-            error: `Error ${err.response.status}: ${message}`,
-          })  
-        }   
-      })
+      .catch(err => console.log(err))
   }
 
   addFriend = (e) => {
@@ -76,12 +54,29 @@ class App extends Component {
       alert('Please fill in all friend fields.')
     }
   }
+
+  deleteFriend = (id) => {
+    axios
+    .delete(`http://localhost:5000/friends/${id}`)
+    .then(res => {
+      this.setState({ friends: res.data })
+    })
+    .catch(err => console.log(err))
+  }
+
+  removeFriend = (e) => {
+    this.deleteFriend(e.target.id)
+  }
   render() {
     return (
       <div>
       {this.state.error && <div>{this.state.error}</div>}
         <h3>Friends:</h3>
-        <Friends friends={this.state.friends}/>
+        <Friends 
+        friends={this.state.friends}
+        removeFriend={this.removeFriend}
+        />
+
         <h4>Let's be Friends!</h4>
         <NewFriend 
           addFriend={this.addFriend}
