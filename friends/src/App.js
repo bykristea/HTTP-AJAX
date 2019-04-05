@@ -22,7 +22,11 @@ class App extends Component {
           },
         })
       })
+<<<<<<< HEAD
+      .catch(err => console.log(err));
+=======
       .catch(err => console.log(err));;
+>>>>>>> 8d19420... MVP update function
   }
 
   handleInput = (e) => {
@@ -34,51 +38,69 @@ class App extends Component {
     }) 
   }
 
-  postFriend = (newFriend) => {
+  postFriend = (newFriends) => {
     axios
-      .post('http://localhost:5000/friends', newFriend)
+      .post('http://localhost:5000/friends', newFriends)
       .then(res => {
         this.setState({ friends: res.data})
       })
+<<<<<<< HEAD
+      .catch(err => console.log(err))
+=======
       .catch(err => console.log(err));
+>>>>>>> 8d19420... MVP update function
   }
 
   addFriend = (e) => {
     e.preventDefault();
-
-    if (!(this.state.newFriend.id && this.state.newFriend.name && this.state.newFriend.age && this.state.newFriend.email)){
-      alert('Please fill in all friend fields.')
-    } 
-    
-    else if (this.state.friends.map(friend => friend.id).includes(this.state.newFriend.id)) {
-      this.deleteFriend(this.state.newFriend.id)
-      this.postFriend(this.state.newFriend)
-      let id = this.state.friends.map(friend => friend.id).sort((a, b) => b-a)
-      this.setState({newFriend: {id: id[0]+1}});
-      document.getElementById('friendForm').reset();
-    } 
-    
-    else { 
+    if (this.state.newFriend.id && this.state.newFriend.name && this.state.newFriend.age && this.state.newFriend.email) {
       this.postFriend(this.state.newFriend)
       let id = this.state.newFriend.id + 1
       this.setState({newFriend: {id}});
       document.getElementById('friendForm').reset();
-    } 
+    } else {
+      alert('Please fill in all friend fields.')
+    }
   }
 
   deleteFriend = (id) => {
     axios
+<<<<<<< HEAD
+    .delete(`http://localhost:5000/friends/${id}`)
+    .then(res => {
+      this.setState({ friends: res.data })
+    })
+    .catch(err => console.log(err))
+=======
       .delete(`http://localhost:5000/friends/${id}`)
       .then(res => {
         this.setState({ friends: res.data})
       })
       .catch(err => console.log(err));
+>>>>>>> 8d19420... MVP update function
   }
 
   removeFriend = (e) => {
-    e.preventDefault();
     this.deleteFriend(e.target.id)
   }
+<<<<<<< HEAD
+  render() {
+    return (
+      <div>
+      {this.state.error && <div>{this.state.error}</div>}
+        <h3>Friends:</h3>
+        <Friends 
+        friends={this.state.friends}
+        removeFriend={this.removeFriend}
+        />
+
+        <h4>Let's be Friends!</h4>
+        <NewFriend 
+          addFriend={this.addFriend}
+          handleInput={this.handleInput}
+        />
+     </div>
+=======
 
   putFriend = (id) => {
     axios
@@ -126,6 +148,7 @@ class App extends Component {
           />
        
       </div>
+>>>>>>> 8d19420... MVP update function
     );
   }
 }
